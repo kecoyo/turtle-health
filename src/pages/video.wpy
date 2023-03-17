@@ -1,0 +1,55 @@
+<style lang="less">
+page {
+  height: inherit;
+}
+.currentTime {
+  position: absolute;
+  top: 536px;
+  left: 50%;
+  font-size: 22px;
+  transform: translate(-50%, 0);
+  color: rgba(0, 0, 0, 0.75);
+  font-family: -webkit-body;
+  background-color: #fff;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+</style>
+<template>
+  <div class="container">
+    <video id="myVideo" src="https://cdn.kecoyo.com/health/1127_03.mp4" :loop="true" :controls="false" :autoplay="true"
+           :style="{width: width + 'px', height: height + 'px'}"></video>
+    <div class="currentTime">
+      {{currentTime}}
+    </div>
+  </div>
+</template>
+
+<script>
+import wepy from '@wepy/core';
+import dayjs from 'dayjs';
+
+const systemInfo = wx.getSystemInfoSync();
+
+wepy.page({
+  config: {
+    navigationBarTitleText: '',
+  },
+
+  data: {
+    width: systemInfo.windowWidth,
+    height: parseInt(systemInfo.windowWidth / (1284 / 2778)),
+    currentTime: '',
+  },
+
+  methods: {},
+
+  created() {
+    let self = this;
+
+    setInterval(() => {
+      self.currentTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    }, 1000);
+  },
+});
+</script>

@@ -1,0 +1,49 @@
+<style lang="less">
+page {
+  height: inherit;
+}
+</style>
+
+<template>
+  <div class="container">
+    <image src="https://cdn.kecoyo.com/health/home.jpg" bindtap="handleTap" :style="{width: width + 'px', height: height + 'px'}" />
+  </div>
+</template>
+
+<script>
+import wepy from '@wepy/core';
+
+const systemInfo = wx.getSystemInfoSync();
+
+wepy.page({
+  config: {
+    navigationBarTitleText: '',
+  },
+
+  data: {
+    width: systemInfo.windowWidth,
+    height: parseInt(systemInfo.windowWidth / (1284 / 2778)),
+  },
+
+  methods: {
+    handleTap() {
+      wx.scanCode({
+        success(res) {
+          console.log(res);
+          wx.navigateTo({
+            url: '/pages/video',
+          });
+        },
+        fail(res) {
+          console.log(res);
+          wx.navigateTo({
+            url: '/pages/video',
+          });
+        },
+      });
+    },
+  },
+
+  created() {},
+});
+</script>
